@@ -22,7 +22,30 @@ int _printf(const char *format, ...)
 		{
 			flag = 1;
 
-			if (format[i] == '%')
+			if (format[i] == '%' && format[i + 1] == '%')
+			{
+				write(1, &format[i], 1);
+				i += 2;
+			}
+
+			if (format[i] == '\\' && format[i] != 10)
+			{
+				i++;
+
+				switch (format[i])
+				{
+					case '\\':
+						write(1, &format[i], 1);
+						flag = 0;
+						break;
+					case 34:
+						write(1, &format[i], 1);
+						flag = 0;
+						break;
+				}
+			}
+
+			if (format[i] == '%' && format[i + 1] != '%')
 			{
 				i++;
 
