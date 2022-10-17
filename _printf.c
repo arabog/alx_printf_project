@@ -45,7 +45,7 @@ int _printf(const char *format, ...)
 				}
 			}
 
-			if (format[i] == '%' && format[i + 1] != '%')
+			if (format[i] == '%')
 			{
 				i++;
 
