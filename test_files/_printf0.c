@@ -18,9 +18,11 @@ int _putchar(char c)
  * @n: integer to print
  */
 
-void print_number(int n)
+int print_number(int n)
 {
 	unsigned int n1 = n;
+
+	int len = 0;
 
 	if (n < 0)
 	{
@@ -28,8 +30,11 @@ void print_number(int n)
 		n1 = -n1;
 	}
 	if ((n1 / 10) > 0)
+	{	len += 1;
 		print_number(n1 / 10);
+	}
 	_putchar((n1 % 10) + '0');
+	return (len);
 }
 
 /**
@@ -41,12 +46,15 @@ void print_number(int n)
 
 int _printf(const char *format, ...)
 {
-	int i = 0, len = 0, flag, j, k;
+	int i, len, flag, lenght, dec, j, k;
 	va_list list;
 	char *str;
 	char ch;
+	char *specifier;
 
-	char *specifier = "cs";
+	specifier = "csid";
+	i = 0;
+	len = 0;
 
 	va_start(list, format);
 
@@ -75,7 +83,7 @@ int _printf(const char *format, ...)
 				}
 			}
 
-			for (k = 0; k < 2; k++)
+			for (k = 0; k < 4; k++)
 			{
 				if (format[i] == '%' && format[i + 1] == specifier[k])
 				{
@@ -100,12 +108,14 @@ int _printf(const char *format, ...)
 							break;
 						case 'd':
 							dec = va_arg(list, int);
-							print_number(dec);
+							lenght = print_number(dec);
+							len += lenght;
 							flag = 0;
 							break;
 						case 'i':
 							dec = va_arg(list, int);
-							print_number(dec);
+							lenght = print_number(dec);
+							len += lenght;
 							flag = 0;
 							break;
 					}
