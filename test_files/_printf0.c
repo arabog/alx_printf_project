@@ -98,16 +98,16 @@ int _printf(const char *format, ...)
 							}
 							flag = 0;
 							break;
-					case 'd':
-						dec = va_arg(list, int);
-						print_number(dec);
-						flag = 0;
-						break;
-					case 'i':
-						dec = va_arg(list, int);
-						print_number(dec);
-						flag = 0;
-						break;
+						case 'd':
+							dec = va_arg(list, int);
+							print_number(dec);
+							flag = 0;
+							break;
+						case 'i':
+							dec = va_arg(list, int);
+							print_number(dec);
+							flag = 0;
+							break;
 					}
 					break;
 				}
