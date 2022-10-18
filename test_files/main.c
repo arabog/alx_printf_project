@@ -16,7 +16,7 @@ int main(void)
 	void *addr; */
 	
 	/* test for %c and %s */
-	_printf("Let's try to printf a %%%%%% \%---  ## \"heyy\" \\ simple sentence.\n");
+	_printf("Let's try to printf a %%%%%% \% ## \"heyy\" \\ simple sentence.\n");
 	printf("Let's try to printf      a  %%%%      rt#  $ & @ ? \"hello\" \\ simple sentence.\n");
 	_printf("Character:[%c]\n", 'H');
 	 printf("Character:[%c]\n", 'H');
