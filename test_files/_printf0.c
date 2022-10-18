@@ -1,5 +1,37 @@
 #include "main.h"
 
+
+/**
+ * _putchar - prints a character
+ * @c: character
+ *
+ * Return: integer in character form
+ */
+
+int _putchar(char c)
+{
+	return (write(1, &c, 1));
+}
+
+/**
+ * print_number - prints an integer
+ * @n: integer to print
+ */
+
+void print_number(int n)
+{
+	unsigned int n1 = n;
+
+	if (n < 0)
+	{
+		_putchar('-');
+		n1 = -n1;
+	}
+	if ((n1 / 10) > 0)
+		print_number(n1 / 10);
+	_putchar((n1 % 10) + '0');
+}
+
 /**
  * _printf - prints a formatted string
  * @format: pointer to character string
@@ -66,6 +98,16 @@ int _printf(const char *format, ...)
 							}
 							flag = 0;
 							break;
+					case 'd':
+						dec = va_arg(list, int);
+						print_number(dec);
+						flag = 0;
+						break;
+					case 'i':
+						dec = va_arg(list, int);
+						print_number(dec);
+						flag = 0;
+						break;
 					}
 					break;
 				}
