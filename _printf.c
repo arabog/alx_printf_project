@@ -1,42 +1,5 @@
 #include "main.h"
 
-
-/**
- * _putchar - prints a character
- * @c: character
- *
- * Return: integer in character form
- */
-
-int _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
-
-/**
- * print_number - prints an integer
- * @n: integer to print
- */
-
-int print_number(int n)
-{
-	unsigned int n1 = n;
-
-	int len = 0;
-
-	if (n < 0)
-	{
-		_putchar('-');
-		n1 = -n1;
-	}
-	if ((n1 / 10) > 0)
-	{	len += 1;
-		print_number(n1 / 10);
-	}
-	_putchar((n1 % 10) + '0');
-	return (len);
-}
-
 /**
  * _printf - prints a formatted string
  * @format: pointer to character string
@@ -46,95 +9,50 @@ int print_number(int n)
 
 int _printf(const char *format, ...)
 {
-	int i, len, flag, lenght, dec, j, k;
-	va_list list;
-	char *str;
-	char ch;
-	char *specifier;
+	int i = 0, value, count = 0;
 
-	specifier = "csid";
-	i = 0;
-	len = 0;
+	va_list list;
+
+	int (*f)(va_list);
 
 	va_start(list, format);
 
-	if (format)
+	if (format == NULL)
+		return (-1);
+
+	while (format[i])
 	{
-		while (format[i])
+		if (format[i] != '%')
 		{
-			flag = 1;
-
-			if (format[i] == '\\')
-			{
-				i++;
-
-				switch (format[i])
-				{
-					case '\\':
-						write(1, &format[i], 1);
-						flag = 0;
-						break;
-					case 34:
-						write(1, &format[i], 1);
-						flag = 0;
-						break;
-					case '%':
-						return (1);
-				}
-			}
-
-			for (k = 0; k < 4; k++)
-			{
-				if (format[i] == '%' && format[i + 1] == specifier[k])
-				{
-					i++;
-
-					switch (format[i])
-					{
-						case 'c':
-							ch = va_arg(list, int);
-							write(1, &ch, 1);
-							len += 1;
-							flag = 0;
-							break;
-						case 's':
-							str = va_arg(list, char *);
-							for (j = 0; str[j] != '\0'; j++)
-							{
-								write(1, &str[j], 1);
-								len += 1;
-							}
-							flag = 0;
-							break;
-						case 'd':
-							dec = va_arg(list, int);
-							lenght = print_number(dec);
-							len += lenght;
-							flag = 0;
-							break;
-						case 'i':
-							dec = va_arg(list, int);
-							lenght = print_number(dec);
-							len += lenght;
-							flag = 0;
-							break;
-					}
-					break;
-				}
-			}
-
-			if (format[i] == '%' && format[i + 1] == '%')
-				i++;
-
-			if (flag)
-			{
-				write(1, &format[i], 1);
-				len += 1;
-			}
+			value = write(1, &format[i], 1);
+			count += value;
 			i++;
+			continue;
+		}
+		if (format[i] == '%')
+		{
+			f = check_specifier(&format[i + 1]);
+			if (f != NULL)
+			{
+				value = f(list);
+				count += value;
+				i += 2;
+				continue;
+			}
+			if (format[i + 1] == '\0')
+			{
+				break;
+			}
+
+			if (format[i + 1] != '\0')
+			{
+				value = write(1, &format[i + 1], 1);
+				count = count + value;
+				i = i + 2;
+				continue;
+			}
 		}
 	}
-	va_end(list);
-	return (len);
+	return (count);
 }
 

@@ -22,8 +22,8 @@ int main(void)
 	/* test for %d and %i */
 	_printf("Length:[%d, %i]\n", len, len2);
 	printf("Length:[%d, %i]\n", len, len2);
-	_printf("Negative:[%d]\n", -762534);
-	printf("Negative:[%d]\n", -762534);
+	_printf("Negative:[%d]\n", -123456789111);
+	printf("Negative:[%d]\n", -123456789111);
 
 	_printf("%d, %i\n", len, len2);
 	printf("%d, %i\n", len, len2);
